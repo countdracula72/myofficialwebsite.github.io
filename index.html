@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Profile Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #121212, #1c1c1c);
+            transition: background-color 0.3s;
+        }
+
+        .profile-container {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+            width: 350px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #00e5ff;
+            backdrop-filter: blur(10px);
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .profile-container.glitch {
+            animation: glitch 1s forwards;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0, 0);
+                clip-path: inset(0);
+                opacity: 1;
+            }
+            20% {
+                transform: translate(-5px, 5px);
+                clip-path: inset(10% 0 80% 0);
+                opacity: 0.8;
+            }
+            40% {
+                transform: translate(5px, -5px);
+                clip-path: inset(40% 0 60% 0);
+                opacity: 0.6;
+            }
+            60% {
+                transform: translate(-5px, 5px);
+                clip-path: inset(70% 0 30% 0);
+                opacity: 0.4;
+            }
+            80% {
+                transform: translate(5px, -5px);
+                clip-path: inset(50% 0 50% 0);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(0, 0);
+                clip-path: inset(0);
+                opacity: 1;
+            }
+        }
+
+        .profile-header {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #00e5ff;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.7);
+            transition: border-color 0.3s;
+        }
+
+        .username {
+            font-size: 28px;
+            margin: 15px 0;
+            color: #00e5ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+        }
+
+        .verified-badge {
+            width: 24px;
+            height: 24px;
+            margin-left: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .follow-button, .like-button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+            position: relative;
+            color: #121212;
+            text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+        }
+
+        .follow-button {
+            background: linear-gradient(135deg, #00e5ff, #00b8d4);
+        }
+
+        .follow-button:hover {
+            background: linear-gradient(135deg, #00b8d4, #00e5ff);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.9);
+            transform: scale(1.1);
+        }
+
+        .follow-button.unfollow-mode {
+            background: linear-gradient(135deg, #ff0040, #ff0040);
+            color: #ffffff;
+            border: 2px solid #ff0040;
+        }
+
+        .follow-button.unfollow-mode:hover {
+            background: linear-gradient(135deg, #ff0040, #ff0040);
+            box-shadow: 0 0 30px rgba(255, 0, 64, 0.8);
+        }
+
+        .like-button {
+            background-color: transparent;
+            color: #00e5ff;
+            border: 2px solid #00e5ff;
+        }
+
+        .like-button.liked {
+            background-color: #ffffff;
+            color: #121212;
+        }
+
+        .like-button:hover {
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.9);
+            transform: scale(1.1);
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .stat h2 {
+            font-size: 22px;
+            margin: 0;
+            color: #00e5ff;
+            text-shadow: 0 0 15px rgba(0, 229, 255, 0.8);
+        }
+
+        .stat p {
+            font-size: 20px;
+            margin: 5px 0 0;
+            color: #e0e0e0;
+        }
+
+        .bio-section {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
+            color: #cfd8dc;
+            font-size: 16px;
+            line-height: 1.5;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.4);
+        }
+
+        .private-profile-text {
+            font-size: 18px;
+            color: #ff0040;
+            margin-top: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 0, 64, 0.8);
+        }
+
+        /* Red neon design */
+        .red-neon .profile-container {
+            background-color: #1e1e1e;
+            border-color: #ff0040;
+            box-shadow: 0 0 40px rgba(255, 0, 64, 0.5);
+        }
+
+        .red-neon .profile-pic {
+            border-color: #ff0040;
+            box-shadow: 0 0 25px rgba(255, 0, 64, 0.7);
+        }
+
+        .red-neon .username {
+            color: #ff0040;
+            text-shadow: 0 0 10px rgba(255, 0, 64, 0.8);
+        }
+
+        .red-neon .follow-button {
+            background: linear-gradient(135deg, #ff0040, #ff0040);
+            color: #ffffff;
+            border: 2px solid #ff0040;
+        }
+
+        .red-neon .follow-button:hover {
+            background: linear-gradient(135deg, #ff0040, #ff0040);
+            box-shadow: 0 0 30px rgba(255, 0, 64, 0.8);
+        }
+
+        .red-neon .like-button {
+            color: #ff0040;
+            border: 2px solid #ff0040;
+        }
+
+        .red-neon .like-button.liked {
+            background-color: #ffffff;
+            color: #121212;
+        }
+
+        .red-neon .bio-section {
+            background-color: #2a2a2a;
+            box-shadow: 0 0 25px rgba(255, 0, 64, 0.4);
+        }
+
+        .red-neon .private-profile-text {
+            color: #ff0040;
+            text-shadow: 0 0 15px rgba(255, 0, 64, 0.8);
+        }
+
+        /* Adding a futuristic effect */
+        .profile-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, transparent, #00e5ff, transparent);
+            animation: rotateBg 4s linear infinite;
+            opacity: 0.1;
+            pointer-events: none;
+            transition: background 0.3s;
+        }
+
+        @keyframes rotateBg {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="haha.jpg" alt="Profile Picture" class="profile-pic" id="profilePic">
+            <h1 class="username">Mc Shane Gianan
+                <img src="hahaha1.jpg" alt="Verified" class="verified-badge">
+            </h1>
+            <div class="button-container">
+                <button class="follow-button" id="followButton">Follow</button>
+                <button class="like-button" id="likeButton">Like</button>
+            </div>
+        </div>
+        <div class="profile-stats">
+            <div class="stat">
+                <h2>Followers</h2>
+                <p>1.2M</p>
+            </div>
+            <div class="stat">
+                <h2>Following</h2>
+                <p>12</p>
+            </div>
+            <div class="stat">
+                <h2>Likes</h2>
+                <p>963.1k</p>
+            </div>
+        </div>
+
+        <!-- Bio Section -->
+        <div class="bio-section">
+            OFFICIAL WEBSITE
+        </div>
+
+        <!-- Private Profile Text -->
+        <div class="private-profile-text">
+            THIS PROFILE IS PRIVATE.
+        </div>
+    </div>
+
+    <script>
+        const followButton = document.getElementById('followButton');
+        const likeButton = document.getElementById('likeButton');
+        const profilePic = document.getElementById('profilePic');
+        const body = document.body;
+
+        followButton.addEventListener('click', function() {
+            if (followButton.innerText === 'Follow') {
+                followButton.innerText = 'Unfollow';
+                followButton.classList.add('unfollow-mode');
+                profilePic.src = 'hahaha2.jpg'; // Replace with the path to the new profile picture
+                body.classList.add('red-neon');
+                setTimeout(() => body.classList.add('glitch'), 0); // Trigger glitch effect
+            } else {
+                followButton.innerText = 'Follow';
+                followButton.classList.remove('unfollow-mode');
+                followButton.style.background = 'linear-gradient(135deg, #00e5ff, #00b8d4)';
+                followButton.style.boxShadow = '0 0 30px rgba(0, 229, 255, 0.9)';
+                profilePic.src = 'haha.jpg'; // Restore original profile picture
+                body.classList.remove('red-neon');
+                body.classList.remove('glitch');
+            }
+        });
+
+        likeButton.addEventListener('click', function() {
+            likeButton.classList.toggle('liked');
+        });
+    </script>
+</body>
+</html>
